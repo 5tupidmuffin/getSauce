@@ -1,8 +1,5 @@
 #  file for user related actions
-"""
-to be done :
-    add session functionality
-"""
+
 
 from flask import Blueprint, request, redirect, url_for, session, render_template, send_from_directory, current_app
 from getSauce import db, logit
