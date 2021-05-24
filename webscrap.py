@@ -117,11 +117,3 @@ def getAnimeInfo(url_to_anidb):
 
     logit("******** Info Successfully Fetched From Anidb ********")
     return animeInformation(title, releasedate, rating, runtime, poster_link, streaming_link, genres, type_of_anime, description, url_to_anidb)
-
-
-# test = getVideoInfo('https://www.imdb.com/title/tt2707408')  # narcos
-
-# print(test.stream)
-
-
-
