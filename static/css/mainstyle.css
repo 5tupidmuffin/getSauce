@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+body {
+    text-align: center;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+
+    background-color: black;
+    color: white;
+
+}
+
+table, tr{
+    border: 1px solid white;
+    border-collapse: collapse;
+    width: 100%; 
+    text-align: left;
+}
+
+th {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+}
+
+input[type=text] {
+    background-color: black;
+    color: white;
+    border-color: white;
+    /* border-radius: 7px; */
+}
+
+input[type=password] {
+    background-color: black;
+    color: white;
+    border-color: white;
+    /* border-radius: 7px; */
+}
+
+input[type=email] {
+    background-color: black;
+    color: white;
+    border-color: white;
+    /* border-radius: 7px; */
+}
+
+input:focus {
+    background-color: white;
+    color: black;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    text-decoration: underline;
+}
+
+a:hover {
+    background-color: white;
+    color: black;
+}
+
+.redhover:hover {
+    color: black;
+    background-color: red;
+}
+
+.button {
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+    text-decoration: none;
+    padding: 15px 32px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.buttonlink {
+    color: black;
+    background-color: yellowgreen;
+    border: 2px solid yellowgreen;
+    text-decoration: none;
+    text-decoration-style: bold;
+    /* padding: 5px 5px; */
+    font-size: 16px;
+    /* margin: 4px 2px; */
+    cursor: pointer;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.buttonlink:hover {
+    border: 2px solid white;
+    background-color: white;
+    color: black;
+}
+
+.button:hover {
+    color: black;
+    background-color: White;
+}
+
+#poster-block {
+    text-align: center;
+    width: 20%;
+    padding: 20px;
+}
+
+#details {
+    font-style: normal;
+    width: 80%;
+    margin: 70px;
+    padding: 10px;
+}
+
+#detail-type {
+    color: greenyellow;
+    display: inline;
+    padding: 5px;
+}
+
+.usernametag {
+    color:greenyellow;
+    display: inline;
+    cursor: default;
+}

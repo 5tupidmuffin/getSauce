@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} LoginPage {% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mainstyle.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<form action="#" method="POST" style="text-align: center;" >
+    <h2>Login()</h2>
+    <label for="username">Username: </label>
+    <input type="text" name="username" id="username"> 
+    <br>
+    <label for="pasword">Password: </label>
+    <input type="password" name="password" id="password">
+    <br>
+    <input type="submit" class="button" value="Log me In">
+</form>
+<br>
+<a href="{{ url_for('user.register') }}">want an account ?</a><br>
+<a href="{{ url_for('home') }}">take me home</a>
+
+{% if msg %}
+<p id="error" style="color: red;">{{ msg }}</p>
+{% endif %}
+
+{% endblock %}

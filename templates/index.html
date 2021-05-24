@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} HomePage {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/mainstyle.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<h2 style="display: inline;">getSauce()</h2> 
+    {% if session['ActiveUser'] %} <h2 class="usernametag" title="Your Username!">
+     | {{ session['ActiveUser'] }}</h2>{% endif %}
+<br>
+
+<form action="{{ url_for('resultspage') }}" method="post" enctype="multipart/form-data">
+    <img id="output" height="150px"> <br>
+    <label for="file">Drop an Image Here:</label>
+    <input type="file" accept="image/*" name="file" id="file" onchange="loadFile(event)"> 
+    <br>
+    <label for="Imagelink">or Paste the Image Link here :</label>
+    <input type="text" name="ImageLink" onpaste="displayiamge()" id="ImageLink">
+    <br>
+    <p> or CTRL+V copied image on this page </p>
+    <button id="editImage" type="button" class="button" onclick="OpenImageEditor()">Edit This Image</button>
+    <input type="submit" class="button" value="Fetch me the Sauce!">
+</form>
+
+
+<br><br>
+
+<ul style="text-align: center;">
+    {% if session["ActiveUser"] %}
+    <li><a href="{{ url_for('user.logout') }}" class="redhover">wanna logout ?</a></li>
+    <li><a href="{{ url_for('user.accountInfo') }}">go to Account Info page ?</a></li>
+    {% else %}
+    <li><a href="{{ url_for('user.login') }}">wanna log in ?</a></li>
+    {% endif %}
+    {% if not session['ActiveUser'] %}
+    <li><a href="{{ url_for('user.register') }}">want an account ?</a></li>
+    {% endif %}
+    <li><a href="{{ url_for('aboutus') }}">wanna know about us ?</a></li>
+    <li><a href="" onclick="duh()">take me home</a></li>
+</ul>
+
+<script src="https://cdn.scaleflex.it/plugins/filerobot-image-editor/3.12.17/filerobot-image-editor.min.js"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

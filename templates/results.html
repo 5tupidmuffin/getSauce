@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Results{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/mainstyle.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<h2 style="display: inline;">setResults()</h2>
+
+{% if session['ActiveUser'] %} <h2 class="usernametag" title="Your Username!">
+    | {{ session['ActiveUser'] }}</h2>{% endif %}
+<br>
+<br>
+
+<a href="{{ url_for('home') }}" style="display: inline;">take me home</a>
+{% if session['ActiveUser'] %}
+<a href="{{ url_for('user.accountInfo') }}">go to Account Page</a>
+{% endif %}
+<br><br>
+
+{% if results %}
+<div id="results" style="text-align: center;">
+    <table>
+        <tr>
+            <!-- first Result -->
+            <th>Image Matched With: <br> <img src="{{ results[0].thumbnail }}" alt="" height="150px"></th>
+            <th>
+                <p id="detail-type">Title:</p> {{ results[0].title }} <br>
+                <p id="detail-type">Similarity:</p> {{ results[0].similarity }}% <br>
+                {% if results[0].episode %}
+                <p id="detail-type">Episode:</p> {{ results[0].episode }} <br>
+                {% endif %}
+                {% if results[0].timestamp %}
+                <p id="detail-type">Timestamp:</p> {{ results[0].timestamp }} <br>
+                {% endif %}
+                <p id="detail-type">Link:</p> <a href="{{ results[0].url }}" style="color: skyblue;" target="_blank">External Link</a>
+            </th>
+        </tr>
+    </table>
+<br>
+    {% if extrainfo %}
+        <table class="extrainfo">
+            <tr style="text-align: center;"> More Details About Media </tr>
+            <tr>
+                <th id="poster-block">
+                    - Poster - <br>
+                    <img src="{{ extrainfo.poster }}" height="500px"><br>
+                    {% if extrainfo.trailer %}
+                    <a href="{{ extrainfo.trailer }}" class="buttonlink" target="_blank">CLick Here to Watch the Trailer</a>
+                    {% endif %}
+                    
+                </th>
+                <th id="details" style="text-align: left;">
+                    <p id="detail-type">Title of Media:</p> {{ extrainfo.title }} <br>
+                    {% if extrainfo.type_of_anime %}
+                    <p id="detail-type">Type of Anime:</p> {{ extrainfo.type_of_anime }} <br>
+                    {% endif %}
+                    <p id="detail-type">Release Date:</p> {{ extrainfo.releaseDate }} <br>
+                    <p id="detail-type">Runtime:</p> {{ extrainfo.runtime }} <br>
+                    <p id="detail-type">Rating:</p> {{ extrainfo.rating }} / 10 <br>
+                    <p id="detail-type">Genres:</p> {% for i in extrainfo.genre %} {{i}} {{ ", " if not loop.last else "" }} {% endfor %} <br>
+                    {% if extrainfo.stream %}
+                    <a href="{{ extrainfo.stream }}" class="buttonlink" target="_blank">Click Here to Watch the Official Stream</a><br>
+                    {% endif %}
+                    <p id="detail-type">Short Description:</p>
+                    <p>{{ extrainfo.description }}</p>
+                    <p id="detail-type">Information Source:</p>
+                    <a href="{{ extrainfo.sourcelink }}" style="color: skyblue;" target="_blank">Source</a><br>
+                </th>
+            </tr>
+        </table>
+    {% endif %}
+    
+</div>
+{% else %}
+
+    <div style="text-align: center;">
+        <h3>No Results Found :(</h3>
+    </div>
+
+{% endif %}
+
+{% endblock %}
