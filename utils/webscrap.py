@@ -2,7 +2,7 @@
 Web Scrapping Script to extract information from external sites
 """
 from bs4 import BeautifulSoup
-from getSauce import logit
+from utils.log import logit
 import re
 import requests
 

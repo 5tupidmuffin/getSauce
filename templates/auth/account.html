@@ -1,34 +1,40 @@
-{% extends 'base.html' %}
-{% block title %} Account Info {% endblock %}
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename = 'css/mainstyle.css') }}">
-{% endblock %}
-{% block body %}
+{% extends 'base.html' %} {% block title %} Account Info {% endblock %} {% block
+head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename = 'css/mainstyle.css') }}"
+/>
+{% endblock %} {% block body %}
 
-<h1 style="display: inline;">getAccountInfo()</h1>
-{% if session['ActiveUser'] %} <h1  class="usernametag" title="Your Username!">
-    | {{ session['ActiveUser'] }}</h1>{% endif %}
-<br>
+<h1 style="display: inline">getAccountInfo()</h1>
+{% if session['ActiveUser'] %}
+<h1 class="usernametag" title="Your Username!">
+  | {{ session['ActiveUser'] }}
+</h1>
+{% endif %}
+<br />
 
 <a href="{{ url_for('home') }}">take me home</a>
 
-<a href="{{ url_for('user.logout') }}" class="redhover">Logout</a><br>
+<a href="{{ url_for('user.logout') }}" class="redhover">Logout</a><br />
 
-<a href="{{ url_for('user.export') }}" class="buttonlink"> Export Seaches in json </a>
+<a href="{{ url_for('user.export') }}" class="buttonlink" target="_blank">
+  Export Seaches in json
+</a>
 
 {% if results %}
-    <table style="text-align: left;">
-    {% for row in results %}
-    <tr>
-        <th>
-            <p id="detail-type">Result Title:</p> {{ row.resulttitle }}<br>
-            <p id="detail-type">Searched On:</p> {{ row.date.strftime("%d-%m-%Y %H:%M:%S") }}
-        </th>
-    </tr>
-    {% endfor %}
-    </table>
+<table style="text-align: left">
+  {% for row in results %}
+  <tr>
+    <th>
+      <p id="detail-type">Result Title:</p>
+      {{ row.resulttitle }}<br />
+      <p id="detail-type">Searched On:</p>
+      {{ row.date.strftime("%d-%m-%Y %H:%M:%S") }}
+    </th>
+  </tr>
+  {% endfor %}
+</table>
 {% else %}
-    <p>No Results to display</p>
-{% endif %}
-
-{% endblock %}
+<p>No Results to display</p>
+{% endif %} {% endblock %}

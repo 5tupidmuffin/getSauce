@@ -7,7 +7,8 @@ import os
 from api import *
 from datetime import datetime
 from models import results
-from webscrap import *
+from utils import getAnimeInfo, getVideoInfo, logit
+
 
 
 UPLOAD_FOLDER = './UploadedImages'  # save uploaded files in this folder

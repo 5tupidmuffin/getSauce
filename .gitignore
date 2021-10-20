@@ -8,3 +8,5 @@ testImages/
 ExportedJson/*.json
 !ExportedJson/format.json
 
+.env
+

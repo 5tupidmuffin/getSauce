@@ -2,10 +2,10 @@
 
 
 from flask import Blueprint, request, redirect, url_for, session, render_template, send_from_directory, current_app
-from getSauce import db, logit
+from getSauce import db
+from utils import logit, passwordValidation, usernameValidation, exportData, logit
 from models import *
-from validation import passwordValidation, usernameValidation
-from jsonexport import exportData
+import bcrypt
 
 
 user = Blueprint('user', __name__)
@@ -21,12 +21,13 @@ def login():  # dummy login
     if request.method == 'POST':
 
         user = request.form['username']
-        password = request.form['password']
+        password = request.form['password'].encode("utf-8")
         if (user == "") or (password == ""):
             return render_template('./auth/login.html', msg = "Check for empty input fields")
 
-        found_user = users.query.filter_by(username = user, password = password).first()  # check if user is in database
-        if found_user:
+        found_user = users.query.filter_by(username = user).first()  # check if user is in database
+
+        if found_user and bcrypt.checkpw(password, found_user.password):
             logit("User Logged In : " + user)
             session["ActiveUser"] = user  # setup a session for user
             return redirect(url_for('user.accountInfo'))  # if exists go to acc page
@@ -60,29 +61,25 @@ def register():
         if usernameValidation(user) != True:
             return render_template('./auth/register.html', error = usernameValidation(user))
 
+        # check if username and email already exists
         checkUser = users.query.filter_by(username = user).first()  # if username exists in db
-
         if checkUser:
             return render_template('./auth/register.html', error = "Username Already Exists")
-        
         checkEmail = users.query.filter_by(email = emailid).first()  # if email already exists in database
-
         if (checkEmail) and (checkEmail.email is not None):
             return render_template('./auth/register.html', error = "Email Already Exists")
 
         if passwordValidation(password) == True:
-            if usernameValidation(user) == True:
-                newUser = users(user, password, emailid)
-                print('email id =', emailid)
-                db.session.add(newUser)  # add new user
-                db.session.commit()
-                logit("user created with username: " + user)
-                session['ActiveUser'] = user
-                return render_template('./auth/account.html')  # goto the account page
-            else:
-                return render_template('./auth/register.html', error = usernameValidation(user))
+            password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            newUser = users(user, password, emailid)
+            db.session.add(newUser)  # add new user
+            db.session.commit()
+            logit("user created with username: " + user)
+            session['ActiveUser'] = user
+            return render_template('./auth/account.html')  # goto the account page
         else:
             return render_template('./auth/register.html', error = passwordValidation(password))
+
 
     else:
         if 'ActiveUser' in session:
@@ -110,14 +107,14 @@ def logout():
         session.pop('ActiveUser', None)
         return redirect(url_for('user.login', msg = "Logged Out"))
     else:
-        return redirect(url_for('user.login', msg = "You Need To log In First pal"))
+        return redirect(url_for('user.login', msg = "You Need To log In First"))
 
 # send json export file to user
 @user.route('/Export', methods= ['GET', 'POST'])
 def export():
     exportData(session['ActiveUser'])
     logit("Exported data of : " + session['ActiveUser'])
-    return send_from_directory(directory= current_app.root_path + '/ExportedJson', filename= 'ExportedJson.json')
+    return send_from_directory(directory= current_app.root_path + '/ExportedJson', path= 'ExportedJson.json')
 
 
 

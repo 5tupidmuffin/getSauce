@@ -14,7 +14,6 @@
 
 import json
 from datetime import datetime
-from getSauce import db
 from models import *
 
 def exportData(username):
