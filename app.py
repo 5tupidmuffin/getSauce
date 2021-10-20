@@ -7,7 +7,8 @@ import os
 from api import *
 from datetime import datetime
 from models import results
-from webscrap import *
+from utils import getAnimeInfo, getVideoInfo, logit
+
 
 
 UPLOAD_FOLDER = './UploadedImages'  # save uploaded files in this folder
@@ -148,9 +149,6 @@ def resultspage():
                 logit("displaying empty results")
                 return render_template('./results.html', results = None)
 
-            return render_template('./results.html', results = results)
-
-    #return render_template('./results.html')
     else:
         logit("redirected to Homepage")
         return redirect(url_for('home'))
@@ -172,7 +170,6 @@ def ErrorDisplay(e):
 
 if __name__ == '__main__':
     db.create_all()
-    print(base.metadata)
     logit("getSauce Successfully Started")
     app.run(debug = True, ssl_context='adhoc')  ## ssl_context so as to run app on https which will solve the anidb poster fetch problem
 

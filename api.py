@@ -1,10 +1,11 @@
-import  requests
 import asyncio
 from pysaucenao import SauceNao
 import time
-from getSauce import logit
+from utils import logit
+import os
 
-key = "api-key-goes-here"  # required for api look up
+
+key = os.environ.get('API_KEY')  # required for api look up
 sauce = SauceNao(api_key= key, min_similarity= 55.0)  # minimum similarity percentage
 
 
