@@ -15,4 +15,11 @@ application requires [Python](https://python.org) and other dependencies mention
  pip install -r requirements.txt
 ```
 
+- create a `.env` file and add following keys wiht appropriate values -
+```shell script
+API_KEY                       # your api key
+SQLITE_URI                    # database connection string
+SECRET_KEY                    # secret for flask
+```
+
 - run `app.py` file which will start the application.

@@ -1,12 +1,10 @@
 __pycache__/
 log.txt
-credentials.txt
 database/getsauce.db
 env/
 uploadedImages/**
 testImages/
 ExportedJson/*.json
 !ExportedJson/format.json
-
 .env
 
