@@ -15,7 +15,7 @@ application requires [Python](https://python.org) and other dependencies mention
  pip install -r requirements.txt
 ```
 
-- create a `.env` file and add following keys wiht appropriate values -
+- create a `.env` file and add following keys with appropriate values -
 ```shell script
 API_KEY                       # your api key
 SQLITE_URI                    # database connection string
